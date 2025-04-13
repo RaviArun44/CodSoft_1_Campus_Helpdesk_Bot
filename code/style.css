@@ -1,0 +1,166 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fb;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+/* Header Section */
+header {
+  width: 100%;
+  background-color: #007bff;
+  padding: 15px;
+  color: white;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* Chat Container */
+.container {
+  width: 100%;
+  max-width: 600px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chatbox Section (No Scrollable) */
+.chat-box {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  height: auto;  /* No fixed height */
+  min-height: 200px;  /* Minimum height to avoid collapsing */
+  flex-grow: 1;  /* Allow the chatbox to grow based on content */
+}
+
+/* Message Styling */
+.user-msg, .bot-msg {
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 6px;
+  max-width: 80%;
+}
+
+.user-msg {
+  background-color: #cce5ff;
+  align-self: flex-end;
+}
+
+.bot-msg {
+  background-color: #e2e3e5;
+  align-self: flex-start;
+}
+
+/* Input Section */
+.input-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#userInput {
+  width: 85%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+button {
+  padding: 10px 15px;
+  font-size: 14px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Button Container */
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.button-container button {
+  width: 150px;
+  margin: 5px;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #777;
+  text-align: center;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  header {
+    font-size: 22px;
+  }
+
+  .button-container button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  #userInput {
+    width: 70%;
+  }
+
+  button {
+    width: 25%;
+  }
+}
+
+/* Quick Replies Section */
+.quick-replies {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.quick-replies button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  margin: 5px 0;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.quick-replies button:hover {
+  background-color: #0056b3;
+}
