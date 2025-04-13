@@ -1,0 +1,12 @@
+intent,patterns,response
+library,find book|get book|library|borrow|book|books|section|reading,You can find books in the main campus library.
+canteen,canteen|food|menu|meal|eat|lunch|breakfast|dinner|snacks|timing,The canteen serves meals from 8 AM to 8 PM.
+hostel,hostel|stay|room|accommodation|dorm|bed,The hostels are located near the sports complex.
+admission,admission|apply|enroll|registration|join,Admissions are open till June 15. You can apply online.
+fees,fees|payment|pay|fee|tuition|cost,The tuition fee is due by the 10th of each month.
+sports,sports|games|play|ground|tournament|cricket|football,Basketball and football grounds are open from 4 PM.
+events,events|fest|cultural|seminar|workshop|techfest,Check the student portal for upcoming campus events.
+exam,exam|schedule|timetable|test|midterm|finals,Exam schedule will be published by the end of this month.
+placement,placement|job|interview|recruitment|career|company,Placements begin in October. Check eligibility on the portal.
+transport,transport|bus|shuttle|vehicle|ride|commute,Campus buses run every 30 minutes from the main gate.
+greeting,hi|hello|hey|good morning|good evening|greetings,Hey there! How can I help you on campus today?
