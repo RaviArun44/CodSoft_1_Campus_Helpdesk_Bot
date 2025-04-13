@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Helpdesk Chatbot</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7fb;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    /* Page Heading */
+    h1 {
+      font-size: 32px;
+      color: #007bff;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* Header Section */
+    header {
+      width: 100%;
+      background-color: #007bff;
+      padding: 15px;
+      color: white;
+      text-align: center;
+      font-size: 26px;
+      font-weight: bold;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* Chat Container */
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Chatbox Section */
+    .chat-box {
+      max-height: 400px;
+      overflow-y: scroll;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+
+    /* Message Styling */
+    .user-msg, .bot-msg {
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 6px;
+      max-width: 80%;
+    }
+
+    .user-msg {
+      background-color: #cce5ff;
+      align-self: flex-end;
+    }
+
+    .bot-msg {
+      background-color: #e2e3e5;
+      align-self: flex-start;
+    }
+
+    /* Input Section */
+    .input-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    #userInput {
+      width: 85%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 14px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Button Container */
+    .button-container {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .button-container button {
+      width: 150px;
+      margin: 5px;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #777;
+      text-align: center;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .container {
+        width: 90%;
+        padding: 15px;
+      }
+
+      header {
+        font-size: 22px;
+      }
+
+      .button-container button {
+        width: 100%;
+        margin: 5px 0;
+      }
+
+      #userInput {
+        width: 70%;
+      }
+
+      button {
+        width: 25%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page Heading (Title of the Page) -->
+  <h1>Student Support Assistant</h1>
+
+  <!-- Header Section (Optional) -->
+  <header>
+    Tell me how I can help you today!
+  </header>
+
+  <!-- Main Chat Container -->
+  <div class="container">
+    <!-- Chatbox Section -->
+    <div id="chatbox" class="chat-box"></div>
+
+    <!-- User Input Section -->
+    <div class="input-box">
+      <input type="text" id="userInput" placeholder="Type your message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <!-- Additional Buttons Section -->
+    <div class="button-container">
+      <button onclick="clearChat()">Clear Chat</button>
+      <button onclick="viewLog()">📁 View Log</button>
+      <button onclick="exportChatToPDF()">Export Chat to PDF</button>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer>
+    &copy; 2025 Campus Chatbot. All rights reserved.
+  </footer>
+
+  <script>
+    async function sendMessage() {
+      const inputField = document.getElementById('userInput');
+      const message = inputField.value.trim();
+      if (!message) return;
+
+      addMessage("You", message);
+      inputField.value = "";
+
+      const response = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: message })
+      });
+      const data = await response.json();
+      addMessage("Bot", data.reply);
+    }
+
+    function addMessage(sender, message) {
+      const chatbox = document.getElementById('chatbox');
+      const msg = document.createElement('div');
+      msg.className = sender === "You" ? "user-msg" : "bot-msg";
+      msg.textContent = `${sender}: ${message}`;
+      chatbox.appendChild(msg);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    async function viewLog() {
+      const response = await fetch('/view_log');
+      const data = await response.json();
+      if (data.logs) {
+        alert(data.logs);
+      } else {
+        alert('No log data available');
+      }
+    }
+
+    function clearChat() {
+      const chatbox = document.getElementById('chatbox');
+      chatbox.innerHTML = '';
+      fetch('/clear_chat', { method: 'POST' });
+    }
+
+    async function exportChatToPDF() {
+      const response = await fetch('/export_chat_pdf');
+      const blob = await response.blob();
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'chat_log.pdf';
+      link.click();
+    }
+
+
+
+  </script>
+
+</body>
+</html>
