@@ -1,0 +1,4 @@
+docker pull node:18-alpine
+docker pull nginx:alpine 
+docker build -t hos .
+docker run -d -p 3000:80 hos

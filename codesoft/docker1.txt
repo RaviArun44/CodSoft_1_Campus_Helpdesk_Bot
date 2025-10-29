@@ -1,0 +1,11 @@
+docker pull node:18-alpine
+docker pull nginx:alpine
+docker build -t filename .
+docker run -d -p 3000:80 filename
+git init
+git add .
+git commit -m "hi"
+git remote add origin 
+git branch 
+git branch -m main
+git push -u origin main

@@ -1,0 +1,51 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                echo 'Fetching source code...'
+                git branch: 'main', url: 'https://github.com/spriya06p/formvalidate.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                dir('devops') {
+                    echo 'Installing npm dependencies...'
+                    bat 'npm install'
+                }
+            }
+        }
+
+        stage('Build React App') {
+            steps {
+                dir('devops') {
+                    echo 'Building React application...'
+                    bat 'npm run build'
+                }
+            }
+        }
+
+        stage('Serve Build') {
+            steps {
+                dir('devops') {
+                    echo 'Starting server in background...'
+                    // 👇 Runs the server in background so Jenkins can finish the job
+                    bat 'start cmd /c "npx serve -s build -l 3000"'
+                    echo '✅ Server started successfully at http://localhost:3000'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '🎉 Pipeline completed successfully!'
+        }
+        failure {
+            echo '❌ Build or serve step failed. Check logs.'
+        }
+    }
+}
+pipeline code

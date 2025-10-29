@@ -1,0 +1,5 @@
+cd hos
+call npm ci || call npm install
+call npm run build 
+mkdir "C:\ProgramData\Jenkins\.Jenkins\userContent\react-app"
+xcopy /E /I /Y "dist\*" "C:\ProgramData\Jenkins\.Jenkins\userContent\react-app\"
